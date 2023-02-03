@@ -5,23 +5,71 @@ const { BinarySearchTree, TreeNode } = require('./binary-search-tree.js');
 // Practice problems on binary trees
 
 function findMinBST (rootNode) {
-  // Your code here
+  if (rootNode.left){
+    return findMinBST(rootNode.left)
+  } else {
+    return (rootNode.val)
+  }
 }
 
 function findMaxBST (rootNode) {
-  // Your code here
+  if (rootNode.right){
+    return findMaxBST(rootNode.right)
+  } else {
+    return (rootNode.val)
+  }
 }
 
 function findMinBT (rootNode) {
-  // Your code here
+  let min = Infinity;
+  const stack = [];
+  stack.push(rootNode)
+
+  while (stack.length > 0){
+    let node = stack.pop();
+    if (node.val < min){
+      min = node.val
+    }
+    if(node.left){
+      stack.push(node.left)
+    }
+    if(node.right){
+      stack.push(node.right)
+    }
+  }
+return min
 }
 
 function findMaxBT (rootNode) {
-  // Your code here
+ let min = rootNode.val
+ if(rootNode.left){
+  min = Math.max(min, findMaxBT(rootNode.left))
+ }
+ if (rootNode.right){
+  min = Math.max(min, findMaxBT(rootNode.right))
+ }
+ return min
 }
 
-function getHeight (rootNode) {
-  // Your code here
+function getHeight (rootNode ) {
+let height = -1
+if (rootNode){
+  let rootQueue = [rootNode];
+  while(rootQueue.length){
+ let row = rootQueue.splice(0, rootQueue.length)
+ height++
+ row.forEach(ele => {
+  if(ele.left){
+    rootQueue.push(ele.left)
+  }
+  if(ele.right){
+    rootQueue.push(ele.right)
+  }
+ })
+  }
+ 
+}
+ return height
 }
 
 function balancedTree (rootNode) {
